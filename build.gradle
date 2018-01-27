@@ -20,7 +20,6 @@ subprojects {
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'
 	
-	group = 'com.tmtron.ex.xtext.twog.a'
 	version = '1.0.0-SNAPSHOT'
 	
 	sourceCompatibility = '1.8'
