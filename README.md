@@ -1,8 +1,8 @@
-# Testproject for Xtext wiht 2 Grammars
+# Testproject for Xtext with 2 Grammars
 
 The repository contains 2 projects:
 
-* `.a`: grammar a which is independant
+* `.a`: grammar a which is independent
 * `.b`: grammar b, which references grammar a
 
 [![Build Status](https://travis-ci.org/tmtron/ex.xtext.twog.svg?label=travis)](https://travis-ci.org/tmtron/ex.xtext.twog/builds) 
