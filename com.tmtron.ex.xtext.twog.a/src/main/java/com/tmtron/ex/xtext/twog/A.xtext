@@ -1,9 +1,9 @@
-grammar com.tmtron.ex.xtext.twog.A with org.eclipse.xtext.common.Terminals
+grammar com.tmtron.ex.xtext.twog.A with org.eclipse.xtext.xbase.annotations.XbaseWithAnnotations
 
 generate a "http://www.tmtron.com/ex/xtext/twog/A"
 
-Model:
-	greetings+=Greeting*;
+ModelA:
+	definitions+=Definition*;
 	
-Greeting:
-	'Hello' name=ID '!';
+Definition:
+	'def' name=ID type=JvmTypeReference;

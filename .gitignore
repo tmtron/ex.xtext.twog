@@ -16,3 +16,9 @@ gradle-app.setting
 **/.settings
 **/.project
 **/.classpath
+
+# xtext
+**/generated
+**/src-gen
+**/xtend-gen
+**/xtext-gen
