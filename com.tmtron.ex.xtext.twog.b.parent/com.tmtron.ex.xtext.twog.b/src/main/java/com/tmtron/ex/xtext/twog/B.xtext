@@ -1,0 +1,9 @@
+grammar com.tmtron.ex.xtext.twog.B with org.eclipse.xtext.common.Terminals
+
+generate b "http://www.tmtron.com/ex/xtext/twog/B"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
