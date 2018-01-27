@@ -26,6 +26,7 @@ Workflow {
 		language = StandardLanguage {
 			name = "com.tmtron.ex.xtext.twog.B"
 			fileExtensions = "dslb"
+			referencedResource = "platform:/resource/com.tmtron.ex.xtext.twog.a/model/generated/A.genmodel"
 
 			serializer = {
 				generateStub = false

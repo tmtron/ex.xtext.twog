@@ -1,9 +1,10 @@
-grammar com.tmtron.ex.xtext.twog.B with org.eclipse.xtext.common.Terminals
+grammar com.tmtron.ex.xtext.twog.B with org.eclipse.xtext.xbase.annotations.XbaseWithAnnotations
 
 generate b "http://www.tmtron.com/ex/xtext/twog/B"
+import "http://www.tmtron.com/ex/xtext/twog/A" as A
 
-Model:
-	greetings+=Greeting*;
+ModelB:
+	uses+=Use*;
 	
-Greeting:
-	'Hello' name=ID '!';
+Use:
+	'use' def=[A::Definition];
