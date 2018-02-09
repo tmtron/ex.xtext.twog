@@ -102,6 +102,34 @@ class BCompilerTest {
 		]
 	}		
 		
+	@Test
+	def void testReferencesWithinSamePackageImplicit() {
+		resourceSet(#[
+				"src/main/java/com/tmtron/a.dsla" -> '''
+				def DefStr java.lang.String
+				def DefInt java.lang.Integer
+				''',
+				'b.dslb' -> '''
+				package com.tmtron {
+				  use UseStrCls DefStr
+				}'''
+				])
+		.compile[
+			checkValidationErrors
+			'''
+			package com.tmtron;
+			
+			import com.tmtron.DefStr;
+			
+			@SuppressWarnings("all")
+			public class UseStrCls {
+			  private DefStr defStr;
+			}
+			'''.toString().assertEquals(getGeneratedCode('com.tmtron.UseStrCls'))
+			compiledClass
+		]
+	}	
+			
 	private def void checkValidationErrors(Result it) {
 		val allErrors = getErrorsAndWarnings.filter[severity == Severity.ERROR]
 		if (!allErrors.empty) {

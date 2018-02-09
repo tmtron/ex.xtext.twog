@@ -3,9 +3,14 @@
  */
 package com.tmtron.ex.xtext.twog
 
+import org.eclipse.xtext.resource.IDerivedStateComputer
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 class ARuntimeModule extends AbstractARuntimeModule {
+	
+	override Class<? extends IDerivedStateComputer> bindIDerivedStateComputer() {
+		return CustomDerivedStateComputer
+	}
 }

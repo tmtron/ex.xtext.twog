@@ -31,4 +31,22 @@ class CompilerTest extends CompilerTestBase {
 		]
 	}	
 	
+	@Test
+	def void asssertWithImplicitPackage() {
+		resourceSet(#[
+				'main/java/com/tmtron/modelA.dsla' ->'''def Def1 java.lang.String'''
+				])		
+		.compile[
+			'''
+			package com.tmtron;
+			
+			@SuppressWarnings("all")
+			public class Def1 {
+			  private String def1;
+			}
+			'''.toString.assertEquals(singleGeneratedCode)
+			compiledClass
+		]
+	}		
+	
 }
