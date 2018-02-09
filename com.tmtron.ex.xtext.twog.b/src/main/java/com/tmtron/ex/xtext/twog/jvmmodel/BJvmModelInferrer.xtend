@@ -9,6 +9,7 @@ import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import com.tmtron.ex.xtext.twog.b.Use
+import org.eclipse.xtext.common.types.JvmVisibility
 
 /**
  * <p>Infers a JVM model from the source model.</p> 
@@ -48,11 +49,14 @@ class BJvmModelInferrer extends AbstractModelInferrer {
 	 *            <code>true</code>.
 	 */
 	def dispatch void infer(Use use, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
+		println("BJvmModelInferrer: use="+use.name+' isPreIndexingPhase:'+isPreIndexingPhase)
  		acceptor.accept(use.toClass(use.fullyQualifiedName)) [
 			val fieldTypeStr = use.def.fullyQualifiedName
 			val fieldType = typeRef(fieldTypeStr.toString)
 			var fieldName = use.def.name.toFirstLower
-			members += use.toField(fieldName, fieldType)
+			members += use.toField(fieldName, fieldType) [
+				visibility = JvmVisibility.PUBLIC
+			]
 		]
 	}
 }

@@ -39,7 +39,7 @@ class BCompilerTest {
 			'''
 			@SuppressWarnings("all")
 			public class UseStrCls {
-			  private DefStr defStr;
+			  public DefStr defStr;
 			}
 			'''.toString().assertEquals(getGeneratedCode('UseStrCls'))
 			compiledClass
@@ -66,7 +66,7 @@ class BCompilerTest {
 			
 			@SuppressWarnings("all")
 			public class UseStrCls {
-			  private DefStr defStr;
+			  public DefStr defStr;
 			}
 			'''.toString().assertEquals(getGeneratedCode('UseStrCls'))
 			compiledClass
@@ -95,7 +95,7 @@ class BCompilerTest {
 			
 			@SuppressWarnings("all")
 			public class UseStrCls {
-			  private DefStr defStr;
+			  public DefStr defStr;
 			}
 			'''.toString().assertEquals(getGeneratedCode('com.tmtron.UseStrCls'))
 			compiledClass
@@ -123,7 +123,7 @@ class BCompilerTest {
 			
 			@SuppressWarnings("all")
 			public class UseStrCls {
-			  private DefStr defStr;
+			  public DefStr defStr;
 			}
 			'''.toString().assertEquals(getGeneratedCode('com.tmtron.UseStrCls'))
 			compiledClass

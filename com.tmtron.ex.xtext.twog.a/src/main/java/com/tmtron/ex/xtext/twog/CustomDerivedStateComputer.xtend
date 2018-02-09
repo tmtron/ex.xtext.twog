@@ -35,7 +35,7 @@ class CustomDerivedStateComputer extends JvmModelAssociator {
 			name = autoPackageString
 			elements.addAll(model.elements)
 		]
-		println('''Auto-Package: «autoPackage.name» / «firstEle?.name»''')
+		println('''Auto-Package: «autoPackage.name» / «model.eResource.URI»''')
 		model.elements.add(autoPackage)	
 	}	
 
