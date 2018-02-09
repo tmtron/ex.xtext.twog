@@ -4,11 +4,11 @@
 package com.tmtron.ex.xtext.twog.jvmmodel
 
 import com.google.inject.Inject
-import com.tmtron.ex.xtext.twog.b.ModelB
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
 import org.eclipse.xtext.naming.IQualifiedNameProvider
+import com.tmtron.ex.xtext.twog.b.Use
 
 /**
  * <p>Infers a JVM model from the source model.</p> 
@@ -47,14 +47,12 @@ class BJvmModelInferrer extends AbstractModelInferrer {
 	 *            rely on linking using the index if isPreIndexingPhase is
 	 *            <code>true</code>.
 	 */
-	def dispatch void infer(ModelB model, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
- 		acceptor.accept(model.toClass("ModelB")) [
- 			for (use : model.uses) {
- 				val fieldTypeStr = use.def.fullyQualifiedName
- 				val fieldType = typeRef(fieldTypeStr.toString)
- 				var fieldName = use.def.name.toFirstLower
- 				members += use.toField(fieldName, fieldType)
-			}
+	def dispatch void infer(Use use, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
+ 		acceptor.accept(use.toClass(use.fullyQualifiedName)) [
+			val fieldTypeStr = use.def.fullyQualifiedName
+			val fieldType = typeRef(fieldTypeStr.toString)
+			var fieldName = use.def.name.toFirstLower
+			members += use.toField(fieldName, fieldType)
 		]
 	}
 }

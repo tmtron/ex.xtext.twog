@@ -5,7 +5,15 @@ import "http://www.tmtron.com/ex/xtext/twog/A" as A
 
 ModelB:
 	importSection=XImportSection?
-	uses+=Use*;
+	elements+=AbstractElement+;
+	
+AbstractElement:
+    PackageDeclaration | Use;
+	
+PackageDeclaration:
+    'package' name=QualifiedName '{'
+        elements+=AbstractElement*
+    '}';		
 	
 Use:
-	'use' def=[A::Definition];
+	'use' name=ValidID def=[A::Definition];

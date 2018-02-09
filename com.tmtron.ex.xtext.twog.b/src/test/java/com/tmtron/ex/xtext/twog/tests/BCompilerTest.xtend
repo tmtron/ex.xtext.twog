@@ -31,17 +31,17 @@ class BCompilerTest {
 				def DefInt java.lang.Integer
 				''',
 				'b.dslb' -> '''
-				use DefStr
+				use UseStrCls DefStr
 				'''
 				])
 		.compile[
 			checkValidationErrors
 			'''
 			@SuppressWarnings("all")
-			public class ModelB {
+			public class UseStrCls {
 			  private DefStr defStr;
 			}
-			'''.toString().assertEquals(getGeneratedCode('ModelB'))
+			'''.toString().assertEquals(getGeneratedCode('UseStrCls'))
 			compiledClass
 		]
 	}	
@@ -56,7 +56,7 @@ class BCompilerTest {
 				}''',
 				'b.dslb' -> '''
 				import com.tmtron.DefStr;
-				use DefStr
+				use UseStrCls DefStr
 				'''
 				])
 		.compile[
@@ -65,13 +65,42 @@ class BCompilerTest {
 			import com.tmtron.DefStr;
 			
 			@SuppressWarnings("all")
-			public class ModelB {
+			public class UseStrCls {
 			  private DefStr defStr;
 			}
-			'''.toString().assertEquals(getGeneratedCode('ModelB'))
+			'''.toString().assertEquals(getGeneratedCode('UseStrCls'))
 			compiledClass
 		]
 	}	
+		
+	@Test
+	def void testReferencesWithinSamePackage() {
+		resourceSet(#[
+				"a.dsla" -> '''
+				package com.tmtron {
+				  def DefStr java.lang.String
+				  def DefInt java.lang.Integer
+				}''',
+				'b.dslb' -> '''
+				package com.tmtron {
+				  use UseStrCls DefStr
+				}'''
+				])
+		.compile[
+			checkValidationErrors
+			'''
+			package com.tmtron;
+			
+			import com.tmtron.DefStr;
+			
+			@SuppressWarnings("all")
+			public class UseStrCls {
+			  private DefStr defStr;
+			}
+			'''.toString().assertEquals(getGeneratedCode('com.tmtron.UseStrCls'))
+			compiledClass
+		]
+	}		
 		
 	private def void checkValidationErrors(Result it) {
 		val allErrors = getErrorsAndWarnings.filter[severity == Severity.ERROR]

@@ -21,8 +21,8 @@ class BParsingTest {
 	@Test
 	def void loadModel() {
 		val result = parseHelper.parse('''
-			use Adef1
-			use Adef2
+			use Use1 Adef1
+			use Use2 Adef2
 		''')
 		Assert.assertNotNull(result)
 	}
