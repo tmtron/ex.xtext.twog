@@ -17,12 +17,36 @@ import org.junit.runner.RunWith
 class AParsingTest {
 	@Inject
 	ParseHelper<ModelA> parseHelper
-	
+
 	@Test
 	def void loadModel() {
 		val result = parseHelper.parse('''
-			def Def1 java.lang.String
+			def DefInt Integer
+			''')
+		Assert.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+
+
+	@Test
+	def void loadModelWith2Defs() {
+		val result = parseHelper.parse('''
+		def Def1 java.lang.String
+		def Def2 Integer
 		''')
+		Assert.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)
+	}
+	
+	@Test
+	def void loadModelWithPackage() {
+		val result = parseHelper.parse('''
+			package com.tmtron {
+			  def Def1 java.lang.String
+			  def Def2 Integer
+			}''')
 		Assert.assertNotNull(result)
 		val errors = result.eResource.errors
 		Assert.assertTrue('''Unexpected errors: «errors.join(", ")»''', errors.isEmpty)

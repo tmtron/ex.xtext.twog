@@ -3,7 +3,15 @@ grammar com.tmtron.ex.xtext.twog.A with org.eclipse.xtext.xbase.annotations.Xbas
 generate a "http://www.tmtron.com/ex/xtext/twog/A"
 
 ModelA:
-	definitions+=Definition*;
+	elements+=AbstractElement+;
+	
+AbstractElement:
+    PackageDeclaration | Definition;
+	
+PackageDeclaration:
+    'package' name=QualifiedName '{'
+        elements+=AbstractElement*
+    '}';		
 	
 Definition:
 	'def' name=ID type=JvmTypeReference;

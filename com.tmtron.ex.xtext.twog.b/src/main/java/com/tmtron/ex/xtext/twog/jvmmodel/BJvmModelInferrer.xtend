@@ -8,6 +8,7 @@ import com.tmtron.ex.xtext.twog.b.ModelB
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 /**
  * <p>Infers a JVM model from the source model.</p> 
@@ -21,6 +22,7 @@ class BJvmModelInferrer extends AbstractModelInferrer {
 	 * convenience API to build and initialize JVM types and their members.
 	 */
 	@Inject extension JvmTypesBuilder
+	@Inject extension IQualifiedNameProvider
 
 	/**
 	 * The dispatch method {@code infer} is called for each instance of the
@@ -48,7 +50,10 @@ class BJvmModelInferrer extends AbstractModelInferrer {
 	def dispatch void infer(ModelB model, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
  		acceptor.accept(model.toClass("ModelB")) [
  			for (use : model.uses) {
- 				members += use.toField(use.def.name, use.def.type)
+ 				val fieldTypeStr = use.def.fullyQualifiedName
+ 				val fieldType = typeRef(fieldTypeStr.toString)
+ 				var fieldName = use.def.name.toFirstLower
+ 				members += use.toField(fieldName, fieldType)
 			}
 		]
 	}

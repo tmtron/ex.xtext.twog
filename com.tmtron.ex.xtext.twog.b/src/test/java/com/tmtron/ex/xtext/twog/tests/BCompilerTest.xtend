@@ -39,12 +39,40 @@ class BCompilerTest {
 			'''
 			@SuppressWarnings("all")
 			public class ModelB {
-			  private String DefStr;
+			  private DefStr defStr;
 			}
-			'''.toString().assertEquals(singleGeneratedCode)
+			'''.toString().assertEquals(getGeneratedCode('ModelB'))
+			compiledClass
 		]
 	}	
 	
+	@Test
+	def void testReferencesWithPackage() {
+		resourceSet(#[
+				"a.dsla" -> '''
+				package com.tmtron {
+				  def DefStr java.lang.String
+				  def DefInt java.lang.Integer
+				}''',
+				'b.dslb' -> '''
+				import com.tmtron.DefStr;
+				use DefStr
+				'''
+				])
+		.compile[
+			checkValidationErrors
+			'''
+			import com.tmtron.DefStr;
+			
+			@SuppressWarnings("all")
+			public class ModelB {
+			  private DefStr defStr;
+			}
+			'''.toString().assertEquals(getGeneratedCode('ModelB'))
+			compiledClass
+		]
+	}	
+		
 	private def void checkValidationErrors(Result it) {
 		val allErrors = getErrorsAndWarnings.filter[severity == Severity.ERROR]
 		if (!allErrors.empty) {

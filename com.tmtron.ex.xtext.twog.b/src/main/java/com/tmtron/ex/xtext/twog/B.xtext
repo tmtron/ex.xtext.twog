@@ -4,6 +4,7 @@ generate b "http://www.tmtron.com/ex/xtext/twog/B"
 import "http://www.tmtron.com/ex/xtext/twog/A" as A
 
 ModelB:
+	importSection=XImportSection?
 	uses+=Use*;
 	
 Use:
