@@ -49,7 +49,6 @@ class BJvmModelInferrer extends AbstractModelInferrer {
 	 *            <code>true</code>.
 	 */
 	def dispatch void infer(Use use, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
-		println("BJvmModelInferrer: use="+use.name+' isPreIndexingPhase:'+isPreIndexingPhase)
  		acceptor.accept(use.toClass(use.fullyQualifiedName)) [
 			val fieldTypeStr = use.def.fullyQualifiedName
 			val fieldType = typeRef(fieldTypeStr.toString)
