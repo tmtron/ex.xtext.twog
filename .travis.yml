@@ -26,5 +26,4 @@ install: true
 
 # see https://docs.travis-ci.com/user/customizing-the-build/#Customizing-the-Build-Step
 script:
-- gradle clean check build --console plain
-- cd demo && gradle clean check build --console plain
+- .\gradle clean check build --console plain && cd demo && gradle clean check build --console plain
