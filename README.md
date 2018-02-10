@@ -11,6 +11,9 @@ The repository contains 2 projects:
 
 * just execute `gradlew build` in the root project
 
+## DerivedStateComputer
+An example how to use DerivedStateComputer is in the [DerivedStateComputer branch](../../tree/DerivedStateComputer)
+
 Links:
 
 * Xtext forum discussion: [Compiler tests for multi-DSLs?](https://www.eclipse.org/forums/index.php/t/1091347/)
