@@ -13,7 +13,7 @@ class CustomDerivedStateComputer extends JvmModelAssociator {
 			return;
 		val eObject = resource.contents.head
 		if (eObject instanceof ModelA) {
-			if (preLinkingPhase) eObject.handleAutoPackage
+			eObject.handleAutoPackage
 		}
 		
 		super.installDerivedState(resource, preLinkingPhase)	
