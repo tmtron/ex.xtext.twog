@@ -1,4 +1,2 @@
-package com.tmtron {
-  def DefStr java.lang.String
-  def DefInt java.lang.Integer
-}
+def DefStr java.lang.String
+def DefInt java.lang.Integer
