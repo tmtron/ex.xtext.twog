@@ -2,12 +2,19 @@ apply plugin: 'org.xtext.builder'
 
 dependencies {
     compile project(':demoA')
+    xtextLanguages 'com.tmtron.ex.xtext.twog.a:com.tmtron.ex.xtext.twog.a:1.0.0-SNAPSHOT'
     xtextLanguages 'com.tmtron.ex.xtext.twog.b:com.tmtron.ex.xtext.twog.b:1.0.0-SNAPSHOT'
 }
 
 xtext {
     version = "$xtextVersion"
     languages {
+        dsla {
+            setup = 'com.tmtron.ex.xtext.twog.AStandaloneSetup'
+            generator {
+                outlet.producesJava = true
+            }
+        }
         dslb {
             setup = 'com.tmtron.ex.xtext.twog.BStandaloneSetup'
             generator {

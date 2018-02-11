@@ -13,7 +13,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(XtextRunner)
-@InjectWith(BInjectorProvider)
+@InjectWith(CustomInjectorProvider)
 class BParsingTest {
 	@Inject
 	ParseHelper<ModelB> parseHelper

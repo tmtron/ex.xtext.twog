@@ -4,6 +4,8 @@
 package com.tmtron.ex.xtext.twog
 
 import com.google.inject.Injector
+import org.eclipse.emf.ecore.EPackage
+import com.tmtron.ex.xtext.twog.a.APackage
 
 /**
  * Initialization support for running Xtext languages without Equinox extension registry.
@@ -15,7 +17,7 @@ class BStandaloneSetup extends BStandaloneSetupGenerated {
 	}
 	
 	override Injector createInjectorAndDoEMFRegistration() {
-		AStandaloneSetup.doSetup()
+		EPackage.Registry.INSTANCE.putIfAbsent(APackage.eNS_URI, APackage.eINSTANCE);
 		super.createInjectorAndDoEMFRegistration()
 	}		
 }

@@ -14,7 +14,7 @@ import org.eclipse.xtext.diagnostics.Severity
 import static extension org.junit.Assert.*
 
 @RunWith(XtextRunner)
-@InjectWith(BInjectorProvider)
+@InjectWith(CustomInjectorProvider)
 class BCompilerTest {
 	
 	@Rule
