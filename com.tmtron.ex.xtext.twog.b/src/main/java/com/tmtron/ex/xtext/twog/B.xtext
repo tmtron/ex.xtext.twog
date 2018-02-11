@@ -7,4 +7,4 @@ ModelB:
 	uses+=Use*;
 	
 Use:
-	'use' def=[A::Definition];
+	'use' name=ValidID def=[A::Definition];

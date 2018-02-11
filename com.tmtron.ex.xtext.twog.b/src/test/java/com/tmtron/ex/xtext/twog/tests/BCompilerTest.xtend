@@ -31,20 +31,21 @@ class BCompilerTest {
 				def DefInt java.lang.Integer
 				''',
 				'b.dslb' -> '''
-				use DefStr
+				use UseStrCls DefStr
 				'''
 				])
 		.compile[
 			checkValidationErrors
 			'''
 			@SuppressWarnings("all")
-			public class ModelB {
-			  private String DefStr;
+			public class UseStrCls {
+			  public DefStr defStr;
 			}
-			'''.toString().assertEquals(singleGeneratedCode)
+			'''.toString().assertEquals(getGeneratedCode('UseStrCls'))
+			compiledClass
 		]
 	}	
-	
+		
 	private def void checkValidationErrors(Result it) {
 		val allErrors = getErrorsAndWarnings.filter[severity == Severity.ERROR]
 		if (!allErrors.empty) {

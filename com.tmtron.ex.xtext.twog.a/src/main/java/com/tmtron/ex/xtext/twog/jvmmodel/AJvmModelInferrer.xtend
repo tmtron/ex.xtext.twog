@@ -4,10 +4,11 @@
 package com.tmtron.ex.xtext.twog.jvmmodel
 
 import com.google.inject.Inject
-import com.tmtron.ex.xtext.twog.a.ModelA
 import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder
+import com.tmtron.ex.xtext.twog.a.Definition
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 /**
  * <p>Infers a JVM model from the source model.</p> 
@@ -21,6 +22,12 @@ class AJvmModelInferrer extends AbstractModelInferrer {
 	 * convenience API to build and initialize JVM types and their members.
 	 */
 	@Inject extension JvmTypesBuilder
+	@Inject extension IQualifiedNameProvider
+
+	def debug(String message) {
+		println(this.class.simpleName+': '+message)
+	}
+
 
 	/**
 	 * The dispatch method {@code infer} is called for each instance of the
@@ -45,18 +52,10 @@ class AJvmModelInferrer extends AbstractModelInferrer {
 	 *            rely on linking using the index if isPreIndexingPhase is
 	 *            <code>true</code>.
 	 */
-	def dispatch void infer(ModelA element, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
-		// Here you explain how your model is mapped to Java elements, by writing the actual translation code.
-		
-		// An implementation for the initial hello world example could look like this:
-// 		acceptor.accept(element.toClass("my.company.greeting.MyGreetings")) [
-// 			for (greeting : element.greetings) {
-// 				members += greeting.toMethod("hello" + greeting.name, typeRef(String)) [
-// 					body = '''
-//						return "Hello «greeting.name»";
-//					'''
-//				]
-//			}
-//		]
+	def dispatch void infer(Definition definition, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
+		debug('infer definition='+definition?.name+' isPreIndexingPhase='+isPreIndexingPhase)
+ 		acceptor.accept(definition.toClass(definition.fullyQualifiedName)) [
+			members += definition.toField(definition.name.toFirstLower, definition.type)
+		]
 	}
 }
