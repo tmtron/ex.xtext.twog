@@ -25,6 +25,10 @@ class BJvmModelInferrer extends AbstractModelInferrer {
 	@Inject extension JvmTypesBuilder
 	@Inject extension IQualifiedNameProvider
 
+	def debug(String message) {
+		println(this.class.simpleName+': '+message)
+	}
+
 	/**
 	 * The dispatch method {@code infer} is called for each instance of the
 	 * given element's type that is contained in a resource.
@@ -49,6 +53,7 @@ class BJvmModelInferrer extends AbstractModelInferrer {
 	 *            <code>true</code>.
 	 */
 	def dispatch void infer(Use use, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
+ 		debug('infer use='+use?.name+' isPreIndexingPhase='+isPreIndexingPhase)
  		acceptor.accept(use.toClass(use.fullyQualifiedName)) [
 			val fieldTypeStr = use.def.fullyQualifiedName
 			val fieldType = typeRef(fieldTypeStr.toString)
