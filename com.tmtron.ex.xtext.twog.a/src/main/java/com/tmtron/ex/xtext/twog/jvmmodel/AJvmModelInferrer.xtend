@@ -54,6 +54,7 @@ class AJvmModelInferrer extends AbstractModelInferrer {
 	 */
 	def dispatch void infer(Definition definition, IJvmDeclaredTypeAcceptor acceptor, boolean isPreIndexingPhase) {
 		debug('infer definition='+definition?.name+' isPreIndexingPhase='+isPreIndexingPhase)
+		if (!isPreIndexingPhase) Thread.dumpStack
  		acceptor.accept(definition.toClass(definition.fullyQualifiedName)) [
 			members += definition.toField(definition.name.toFirstLower, definition.type)
 		]
